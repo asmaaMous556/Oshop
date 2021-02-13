@@ -3,9 +3,8 @@ import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule,AngularFireList  } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
 
-
-import { AngularFireAuth } from '@angular/fire/auth';
 
 
 
@@ -27,6 +26,7 @@ import { LoginComponent } from './login/login.component';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
+import {ReactiveFormsModule} from '@angular/forms'
 import{CustomFormsModule} from 'ng2-validation';
 
 import { AuthService } from './auth.service';
@@ -39,6 +39,12 @@ import { AdminAuthGuardService } from './admin-auth-guard.service';
 import { ProductFilterComponent } from './products/product-filter/product-filter.component';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { ShoppingCartService } from './shopping-cart.service';
+import { ProductQuantityComponent } from './product-quantity/product-quantity.component';
+import { cart } from './models/cart';
+import { ShoppingCartSummaryComponent } from './shopping-cart-summary/shopping-cart-summary.component';
+import { CheckOutFormComponent } from './check-out-form/check-out-form.component';
+import { DatePipe } from '@angular/common';
+
 //import { DataTableModule } from 'angular-4-data-table';
 
 
@@ -57,7 +63,11 @@ import { ShoppingCartService } from './shopping-cart.service';
     AdminOrdersComponent,
     ProductFormComponent,
     ProductFilterComponent,
-    ProductCardComponent
+    ProductCardComponent,
+    ProductQuantityComponent,
+    ShoppingCartSummaryComponent,
+    CheckOutFormComponent,
+    
    
    
   ],
@@ -67,8 +77,10 @@ import { ShoppingCartService } from './shopping-cart.service';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
+    AngularFirestoreModule,
     NgbModule ,
     FormsModule,
+    ReactiveFormsModule,
     CustomFormsModule,
     //DataTableModule,
     
@@ -78,8 +90,8 @@ import { ShoppingCartService } from './shopping-cart.service';
       {path:'products',component:ProductsComponent },
       {path:'shopping-cart',component:ShoppingCartComponent},
       {path:'check-out',component:CheckOutComponent,canActivate:[AuthGuardService]},
-      {path:'order-success',component:OrderSuccessComponent ,canActivate:[AuthGuardService]},
-      {path:'my/orders',component:MyOrdersComponent, canActivate:[AuthGuardService]},
+      {path:'order-success/:id',component:OrderSuccessComponent ,canActivate:[AuthGuardService]},
+      {path:'my-orders',component:MyOrdersComponent, canActivate:[AuthGuardService]},
       
      
       {path:'admin/products/new',component:ProductFormComponent,canActivate:[AuthGuardService,AdminAuthGuardService]},
@@ -102,7 +114,9 @@ import { ShoppingCartService } from './shopping-cart.service';
    CategoryService,
    ProductService,
    AdminAuthGuardService,
-   ShoppingCartService
+   ShoppingCartService,
+   cart,
+   DatePipe
   ],
   bootstrap: [AppComponent]
 })

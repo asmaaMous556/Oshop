@@ -6,45 +6,45 @@ import { ActivatedRoute } from '@angular/router';
 import { Product } from '../models/app-product';
 import { switchMap } from 'rxjs/operators';
 import { ShoppingCartService } from '../shopping-cart.service';
+import { cart } from '../models/cart';
+import { item } from '../models/item';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent implements OnInit,OnDestroy {
+export class ProductsComponent implements OnInit {
+  
 products:Product[];
 FilteredProducts: Product[] ;
  category:string;
-  cart: any;
-  subscribtion:Subscription;
+  subscription:Subscription;
+  cart: cart;
 
-  constructor( route :ActivatedRoute,
-  productService : ProductService, 
-  private cartService: ShoppingCartService) {
+  constructor(private  route :ActivatedRoute,
+  private productService : ProductService, 
+  private cartService: ShoppingCartService) {}
+   ngOnInit(){
+      //this.cartService.getCart().subscribe(cart=>this.cart=cart);
+    this.productService.getAll().pipe(switchMap(products=>{
+        this.products=products; 
+        return this.route.queryParamMap;
+        
+      }))
+     .subscribe(params=>{
+        this.category=params.get('category')
+      this.applyFilter();   
+      });
     
-   
-    productService.getAll().pipe(switchMap(products=>{
-      this.products=products;
-      return route.queryParamMap
-      
-    })).subscribe(params=>{
-      this.category=params.get('category')
+     
     
-
-      
-      this.FilteredProducts=(this.category) ?
-      this.products.filter(p=>p.category===this.category) : //if we have a catched category we will call filter method
-      this.products
-    });
-  
-   }
-    async ngOnInit(){
-   this.subscribtion= (await this.cartService.getCart()) .subscribe(cart=>this.cart)
    }
 
- ngOnDestroy(){
-   this.subscribtion.unsubscribe();
- }
+   applyFilter(){
+    this.FilteredProducts=(this.category) ?
+    this.products.filter(p=>p.category===this.category) : //if we have a cached category we will call filter method
+    this.products
+   }
 
   }

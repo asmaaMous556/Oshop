@@ -3,7 +3,7 @@ import { CanActivate } from '@angular/router';
 import { AuthService } from './auth.service';
 import { UserServiceService } from './user-service.service';
 import {switchMap} from 'rxjs/operators';
-import { Observable, observable } from 'rxjs';
+import { Observable} from 'rxjs';
 import { map } from 'rxjs/operators'
 
 @Injectable({

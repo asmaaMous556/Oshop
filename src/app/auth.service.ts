@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase';
-import { Observable, observable } from 'rxjs';
-import { CanActivate, ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { UserServiceService } from './user-service.service';
 import { AppUser } from './models/app-user';
@@ -11,8 +11,8 @@ import { AppUser } from './models/app-user';
   providedIn: 'root'
 })
 export class AuthService {
-  user$: Observable< firebase.User>;
-  
+  user$: Observable<firebase.User>;
+  userId:string;
 
   constructor( private userService : UserServiceService,
     private afAuth :AngularFireAuth,
@@ -21,11 +21,12 @@ export class AuthService {
    let returnUrl= this.route.snapshot.queryParamMap.get('returnUrl') || '/';
     localStorage.setItem('returnUrl',returnUrl);
 
-    this.user$=afAuth.authState;
+    this.user$=afAuth.user;
    }
 
   login(){
     this.afAuth.signInWithRedirect( new firebase.auth.GoogleAuthProvider());
+    
   }
 
   logout(){
@@ -35,8 +36,9 @@ export class AuthService {
 
  get appUser$(): Observable<AppUser>{
    return this.user$
-   .pipe(switchMap(user=>{
+   .pipe(switchMap(user=>{ // switchMap:emitting values only from the most recently projected Observable.
      return this.userService.get(user.uid);
    }))
    }
+
    }

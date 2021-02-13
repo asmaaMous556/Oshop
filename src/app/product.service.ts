@@ -20,7 +20,7 @@ export class ProductService {
    return  this.db.list<Product>('/products').valueChanges();  
   }
 
-  getProductById (productId):Observable<Product>{
+  getProductById (productId):Observable<Product>{ 
   return this.product= this.db.object<Product>('/products/'+ productId).valueChanges();
   // return the object of this id 
   }
@@ -33,7 +33,7 @@ export class ProductService {
    }
 
    editById(){
-    return  this.db.list('/products').snapshotChanges();  
+    return  this.db.list('/products').snapshotChanges();  //get the data of the product by id // get by id 
    }
  
 }

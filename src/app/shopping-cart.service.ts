@@ -1,59 +1,63 @@
+import { item } from './models/item';
+import { AuthService } from './auth.service';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/database';
+import { cart } from './models/cart';
 import { Product } from './models/app-product';
-import { take } from 'rxjs/operators';
-import { observable, Observable } from 'rxjs';
-import { promise } from 'protractor';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShoppingCartService {
+  
+  constructor( private afStore:AngularFirestore, private  authService:AuthService) {}
+  
 
-  constructor(private db: AngularFireDatabase) { 
+   AddToCart(product:item){
+    return  this.afStore
+    .collection('/users/'+this.authService.userId+'/cart/')
+    .add(product);
  
-  }
+   }
+ 
+    getItem(productId:string){
+      return this.afStore.doc<item>('users/'+this.authService.userId+'/cart/'+productId).valueChanges();
+    }
+  
 
- private create(){
-  return   this.db.list('/shopping-carts').push({
-    dateCreated: new Date().getTime()
-
+    changeQuantity(productId:string, item:item, change:number){
     
-    });
+        return this.afStore.doc<item>('/users/'+this.authService.userId+'/cart/'+productId).update({
+           quantity: item.quantity + change
+        })
+     
+      }
 
+  totalCount(items:item[]){
+  let count=0
+  for(let productId in items){
+   count+= items[productId].quantity
+   return count
+ }
   }
 
-async getCart (){
-    let cartId= await this.getOrCreateCart();
-    return  this.db.object('/shopping-carts/'+ cartId).valueChanges();
+  
+getTotalPrice(items:item[]){
+  let sum=0
+  for(let productId in items){
+  sum+= items[productId].quantity* items[productId].price;
   }
-
-private getItem(cartId:string,productId:string){
- return  this.db.object('/shopping-carts/'+cartId+'/items/'+productId);
-
+  return sum;
 }
 
-  private async getOrCreateCart(){
-    let cartId=localStorage.getItem('cartId');
-    if (cartId) return cartId
-   else {
-     let result = await this.create();
-     localStorage.setItem('cartId',result.key);
-    return result.key;
-     }
+ getCart (){ 
+    return  this.afStore.collection<item>('/users/'+this.authService.userId+'/cart').snapshotChanges();
   }
-  async addToCart(product:Product) {
-   
-  let cartId= await this.getOrCreateCart();
   
- let item$ =this.getItem(cartId,product.key) ;
-
-    item$.snapshotChanges().pipe(take(1)).subscribe(item =>{
-      item$.update({product:product, quantity : 0+1 })
-
-
-    })
-  }
+  clearCart( productId:string){
+    return this.afStore.doc('/users/'+this.authService.userId+'/cart/'+ productId).delete();
   }
 
-
+ }
+    
+    
