@@ -16,38 +16,54 @@ export class ProductCardComponent  implements OnInit{
 @Input ('product') product: item;
 
 item:item;
-  items: item[];
+items: item[];
+key:string
 
   constructor( private cartService:ShoppingCartService,private cart:cart) { }
-  ngOnInit(){
-   this.cartService.getItem(this.product.key).subscribe(product=>{
-    this.item=product;
-   })
-   this.cartService.getCart().subscribe(items=>{
-    this.items=items.map(item=>{
-      return{
-        key: item.payload.doc.id,
-        imageUrl:item.payload.doc.data()['imageUrl'],
-        title: item.payload.doc.data()['title'],
-        price: item.payload.doc.data()['price'],
-        quantity:item.payload.doc.data()['quantity'],
-        totalPrice:item.payload.doc.data()['totalPrice']
-      }
-    })
-   })
-  
-   
+  ngOnInit() {
+ // this.getCart();
 }
-  addToCart(){ 
-//  for(let productId in this.items){
-//    if(this.product.key==productId){
-//      this.cartService.changeQuantity(this.product.key,this.product,+1)
-//    }
-//    else{
-    this.product.quantity=1;   
-    this.cartService.AddToCart(this.product);
-     
-  }
+
+getCart(){
+ 
+}
+
+AddToCart(){
+     this.product.quantity=1;
+     this.cartService.AddToCart(this.product);
+    
  }
 
+  //   }
+  // }
 
+
+
+  // this.cartService.getCart().subscribe(items=>{
+  //   this.items=items.map(item=>{
+  //     return {
+  //       key:item.payload.doc.id,
+  //       imageUrl:item.payload.doc.data()['imageUrl'],
+  //       price:item.payload.doc.data()['price'],
+  //       title: item.payload.doc.data()['title'],
+  //       quantity:item.payload.doc.data()['quantity'],
+  //       totalPrice:item.payload.doc.data()['totalPrice']
+  //     }
+  //   })
+  //  // console.log(this.items);
+  //   for(let productId in this.items){
+     
+  //   //  console.log(this.items[productId].key)
+  //   //  console.log(this.product.key)
+  //     if(this.product.key==this.items[productId].key)
+  //     {
+  //       console.log(this.product.key)
+  //      // this.cartService.changeQuantity(this.product.key,this.product,+1)
+  //     }
+  //   }
+  // })
+ 
+  // //console.log(this.items)
+  
+  // //    else{
+}

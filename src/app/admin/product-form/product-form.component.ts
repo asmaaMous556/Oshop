@@ -29,9 +29,9 @@ this.categories$=categoryService.getAll();
 
 this.productId= this.route.snapshot.paramMap.get('id');
   if(this.productId) this.productService.getProductById(this.productId)
-  .subscribe(p=>this.product=p)
+  .subscribe(p=>this.product=p.payload.val()
   
-     }
+  )}
  
 
    

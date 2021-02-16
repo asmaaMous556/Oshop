@@ -1,3 +1,6 @@
+
+<div class="alert alert-success" *ngIf="placed" > Order placed successfully !</div>
+
 <form  [formGroup]="shippingForm" (ngSubmit)="placeOrder(shippingForm.value)">
     <div class="form-group">
         <label for="name" >Name</label>
@@ -41,5 +44,6 @@
             *this field is required</div>
     </div>
 
-<button [disabled]="shippingForm.invalid" class="btn btn-primary">place order</button>
+<button [disabled]="shippingForm.invalid"  class="btn btn-primary">place order</button>
+
 </form>

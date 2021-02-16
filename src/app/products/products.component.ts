@@ -28,7 +28,15 @@ FilteredProducts: Product[] ;
    ngOnInit(){
       //this.cartService.getCart().subscribe(cart=>this.cart=cart);
     this.productService.getAll().pipe(switchMap(products=>{
-        this.products=products; 
+        this.products=products.map(product=>{
+          return {
+            key:product.key,
+            title:product.payload.val()['title'],
+            imageUrl:product.payload.val()['imageUrl'],
+            price:product.payload.val()['price'],
+            category:product.payload.val()['category']
+          }
+        })
         return this.route.queryParamMap;
         
       }))

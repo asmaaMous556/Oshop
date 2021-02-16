@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, AngularFireObject, SnapshotAction } from '@angular/fire/database';
+import { AngularFireDatabase, AngularFireObject, SnapshotAction, snapshotChanges } from '@angular/fire/database';
 import { Observable } from 'rxjs';
 import { AppUser } from './models/app-user';
 import { Product } from './models/app-product';
@@ -17,12 +17,12 @@ export class ProductService {
   return   this.db.list('/products').push(product);
   }
   getAll(){
-   return  this.db.list<Product>('/products').valueChanges();  
+   return  this.db.list<Product>('/products').snapshotChanges();  
   }
 
-  getProductById (productId):Observable<Product>{ 
-  return this.product= this.db.object<Product>('/products/'+ productId).valueChanges();
-  // return the object of this id 
+  getProductById (productId){ 
+  return  this.db.object<Product>('/products/'+ productId).snapshotChanges();
+  
   }
   
    updateProduct (productId,product){

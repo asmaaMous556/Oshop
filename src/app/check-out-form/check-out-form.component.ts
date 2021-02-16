@@ -7,6 +7,7 @@ import { ShoppingCartService } from '../shopping-cart.service';
 import { DatePipe } from '@angular/common';
 import {FormBuilder, PatternValidator} from '@angular/forms' ;
 import{Validators} from '@angular/forms'
+import { DigitsValidator } from 'ng2-validation/dist/digits/directive';
 
 
 
@@ -19,6 +20,7 @@ export class CheckOutFormComponent implements OnInit {
   @Input ('items') items:item[]
   order:order;
   mobNumberPattern = "^((\\+91-?)|0)?[0-9]{11}$";
+  placed:boolean=false;
 
   shippingForm=this.fb.group({
     name:['',Validators.required],
@@ -38,21 +40,20 @@ export class CheckOutFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.date=this.datePipe.transform(this.date,'yyyy-MM-dd');
-    console.log(this.shippingForm.errors);
-    console.log(this.date);
   }
 
 
 
 
-  async placeOrder(shipping:shipping){
+   async placeOrder(shipping:shipping){
     this.order = {
      date:this.date,
       shipping: shipping,
       items: this.items
          }
- let result= await this.OrderService.storeOrder(this.order)
-  this.router.navigate(['/order-success', result.id])
+  let result=await this.OrderService.storeOrder(this.order);
+    this.placed=true;
+ // this.router.navigate(['/order-success', result.id])
 
   }
 

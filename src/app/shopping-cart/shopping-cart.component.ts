@@ -27,8 +27,9 @@ itemId:string
 
        }
      })
-  //console.log(...this.items)
+  console.log(...this.items)
    }) 
+   
   this.getTotalPrice();
 }
 clearCart(){

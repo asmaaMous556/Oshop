@@ -20,7 +20,7 @@ export class ProductQuantityComponent implements OnInit ,OnDestroy{
 
   ngOnInit(): void {
  this.quantitySub= this.cartService.getItem(this.product.key).subscribe(product=>{
-    this.quantity=product.quantity
+    this.quantity=product.payload.data().quantity
     
   })
    

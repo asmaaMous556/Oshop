@@ -21,7 +21,7 @@ export class ShoppingCartService {
    }
  
     getItem(productId:string){
-      return this.afStore.doc<item>('users/'+this.authService.userId+'/cart/'+productId).valueChanges();
+      return this.afStore.doc<item>('users/'+this.authService.userId+'/cart/'+productId).snapshotChanges();
     }
   
 

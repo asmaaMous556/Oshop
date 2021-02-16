@@ -67,7 +67,7 @@ import { DatePipe } from '@angular/common';
     ProductQuantityComponent,
     ShoppingCartSummaryComponent,
     CheckOutFormComponent,
-    
+    LoginComponent
    
    
   ],
