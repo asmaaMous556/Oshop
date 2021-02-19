@@ -1,3 +1,5 @@
+import { AuthGuardService } from './../auth-guard.service';
+import { AuthService } from './../auth.service';
 
 import { Observable } from 'rxjs';
 
@@ -19,7 +21,7 @@ item:item;
 items: item[];
 key:string
 
-  constructor( private cartService:ShoppingCartService,private cart:cart) { }
+  constructor( private cartService:ShoppingCartService,private cart:cart, private AuthService:AuthGuardService) { }
   ngOnInit() {
  // this.getCart();
 }
@@ -29,6 +31,7 @@ getCart(){
 }
 
 AddToCart(){
+ 
      this.product.quantity=1;
      this.cartService.AddToCart(this.product);
     

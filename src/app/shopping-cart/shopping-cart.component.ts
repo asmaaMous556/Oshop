@@ -27,6 +27,7 @@ itemId:string
 
        }
      })
+     //this.cartService.changeItems(this.items);
   console.log(...this.items)
    }) 
    

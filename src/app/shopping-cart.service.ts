@@ -4,14 +4,22 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
 import { cart } from './models/cart';
 import { Product } from './models/app-product';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShoppingCartService {
   
+ // private sourceItems=new BehaviorSubject<item>(null) ;
+  //$=this.sourceItems.asObservable();
+
+
   constructor( private afStore:AngularFirestore, private  authService:AuthService) {}
-  
+
+  // changeItems(items:item[]){
+  //   this.sourceItems.next(items.)
+  // }
 
    AddToCart(product:item){
     return  this.afStore
