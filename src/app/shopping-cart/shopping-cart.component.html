@@ -20,7 +20,6 @@
                     </td>
                     <td>{{item.title}}</td>
                     <td>{{item.price | currency :'USD': true}}</td>
-                    <!-- <td>{{item.quantity}}</td> -->
                      <td  class=" text-center quantity"><app-product-quantity [product]="item"></app-product-quantity></td> 
                      <td>{{item.quantity*item.price | currency :'USD': true}}</td>
                 </tr>
