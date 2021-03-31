@@ -10,7 +10,7 @@
  [queryParams]="{category : c.key}"
  *ngFor="let c of (categories$ |async)" 
  class="list-group-item"
- [class.active]="category === c.key ">
+ [class.active]="category === c.key">
 {{c.payload.val().name}}
     </a>
  </div>

@@ -18,7 +18,7 @@ export class ProductFormComponent implements OnInit {
   categories$:Observable<any[]>;
   product:Product;
   productId: any;
-
+data:[{}]=[{}];
  
   
   constructor(private router :Router,categoryService: CategoryService,
@@ -41,6 +41,7 @@ this.productId= this.route.snapshot.paramMap.get('id');
      else this.productService.create(product);
      
       this.router.navigate(['/admin/products']);
+      this.data.push(product)
    }
 
    delete(){

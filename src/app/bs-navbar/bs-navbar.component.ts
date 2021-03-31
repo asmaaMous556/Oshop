@@ -20,9 +20,6 @@ isAdmin:boolean;
 appUser:AppUser
 
   constructor( private auth: AuthService ) {
-   // this.auth.user$;
-  
-
 
   }
    ngOnInit() {

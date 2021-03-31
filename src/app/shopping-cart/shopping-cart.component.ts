@@ -12,6 +12,7 @@ export class ShoppingCartComponent implements OnInit {
 items: item[];
 itemId:string
   sum: number;
+  itemsLength:number;
  constructor(private cartService:ShoppingCartService) { }
 
   ngOnInit() {
@@ -28,7 +29,8 @@ itemId:string
        }
      })
      //this.cartService.changeItems(this.items);
-  console.log(...this.items)
+     this.items.length
+  console.log(this.items.length)
    }) 
    
   this.getTotalPrice();

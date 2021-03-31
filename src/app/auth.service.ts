@@ -25,19 +25,22 @@ export class AuthService {
    }
 
   login(){
-    this.afAuth.signInWithRedirect( new firebase.auth.GoogleAuthProvider());
+   return this.afAuth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
     
   }
 
   logout(){
-    this.afAuth.signOut();
+   return this.afAuth.signOut();
   
   }
 
  get appUser$(): Observable<AppUser>{
    return this.user$
-   .pipe(switchMap(user=>{ // switchMap:emitting values only from the most recently projected Observable.
-     return this.userService.get(user.uid);
+   .pipe(switchMap(user=>{  // switchMap:emitting values only from the most recently projected Observable.
+     if(user){
+      return this.userService.get(user.uid);
+     } 
+    
    }))
    }
 

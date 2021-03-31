@@ -1,36 +1,59 @@
 <div class="row">
-    <div class="col-9">
+    <div class="col-6">
         <h1>Shopping cart</h1>
+    </div>
+    <div class="col-6">
         <button class=" btn btn-light" (click)="clearCart()"> clear shopping cart</button>
-        <table class="table">
-            <thead>
-                <tr>
+    </div>
+</div>
+<ng-template #noItems>
+  <div class="row">
+    <div class="col-sm">
+            <div class="alert alert-success">
+               shopping cart is empty
+            </div>
+    </div>     
+  </div>
+</ng-template> 
+<div class="row" *ngIf="items.length!==0; else noItems">
+    <div class="col-9">
+        <div class="table-responsive mb-2" id="table">
+            <table class="table">
+                <thead>
+                    <tr class="text-center" >
+                        <th></th>
+                        <th>Title</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total price</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of items" class="text-center">
+                        <td>
+                            <img [src]="item.imageUrl" class="thumbnail"  >
+                        </td>
+                        <td >{{item.title}}</td>
+                        <td >{{item.price | currency :'USD': true}}</td>
+                         <td>
+                           <app-product-quantity [product]="item"></app-product-quantity>
+                        </td> 
+                         <td class="text-center">{{item.quantity*item.price | currency :'USD': true}}</td>
+                    </tr>
                     <th></th>
-                    <th>Title</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Total price</th>
                     <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let item of items">
-                    <td>
-                        <img [src]="item.imageUrl" class="thumbnail" >
-                    </td>
-                    <td>{{item.title}}</td>
-                    <td>{{item.price | currency :'USD': true}}</td>
-                     <td  class=" text-center quantity"><app-product-quantity [product]="item"></app-product-quantity></td> 
-                     <td>{{item.quantity*item.price | currency :'USD': true}}</td>
-                </tr>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th>{{ getTotalPrice() | currency :'USD': true}}</th>
-              
-            </tbody>
-        </table>
-        <a routerLink="/check-out" class=" btn btn-primary">check out</a>
+                    <th></th>
+                    <th></th>
+                    <th class="text-center">{{ getTotalPrice() | currency :'USD': true}}</th>
+                  
+                </tbody>
+            </table>
+           
+        </div>
+         <div class="col-6">
+            <a routerLink="/check-out" class=" btn btn-primary">check out</a>
+        </div>
+       
     </div>
 </div>

@@ -1,19 +1,23 @@
-
-<table class="table">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th> Date</th>
-        <th>Options</th>
+<div class="col-9">
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th> Date</th>
+          <th>Options</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders">
+          <td>{{order.shipping.name}}</td>
+          <td>{{order.date}}</td>
+       <td><a routerLink="/order-success">View</a></td>
+        </tr>
         
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let order of orders">
-        <td>{{order.shipping.name}}</td>
-        <td>{{order.date}}</td>
-     <td><a routerLink="/order-success">View</a></td>
-      </tr>
-      
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  </div>
+ 
+</div>

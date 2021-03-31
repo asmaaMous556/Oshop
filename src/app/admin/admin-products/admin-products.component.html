@@ -1,34 +1,28 @@
 <p>
     <a routerLink="/admin/products/new" class="btn btn-primary">New Products</a>
 </p>
-<p>
-    <!-- <input class="form-control"
-    ngModel name="search"
-    #query="ngModel"
-    (keyUp)="filter(query.value)"
-    placeholder="Search..."
-     type="text" > -->
-</p>
-
-<table class ="table">
-    <thead>
-    <tr>
-            <th>Title</th>
-            <th>Price</th>
-            <th></th>
-    </tr>
-    </thead>
-    <tbody>
-   <tr *ngFor="let p of (products$ | async)">
-        <td>{{p.payload.val().title}}</td>
-        <td>{{p.payload.val().price}}</td>
-        
-
-        <td>
-            <a [routerLink]="['/admin/products/',p.key]"> Edit</a>
-        </td>
-
-    </tr>  
-    </tbody>
-</table> 
+<div class="col-9">
+    <table class ="table-responsive">
+        <thead>
+        <tr>
+                <th>Title</th>
+                <th>Price</th>
+                <th></th>
+        </tr>
+        </thead>
+        <tbody>
+       <tr *ngFor="let p of (products$ | async)">
+            <td>{{p.payload.val().title}}</td>
+            <td>{{p.payload.val().price}}</td>
+            
+    
+            <td>
+                <a [routerLink]="['/admin/products/',p.key]"> Edit</a>
+            </td>
+    
+        </tr>  
+        </tbody>
+    </table> 
+    
+</div>
 

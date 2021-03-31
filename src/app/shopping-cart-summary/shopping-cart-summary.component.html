@@ -2,7 +2,10 @@
     
     <div class="card-body">
     <ul class="list-group list-group-flush">
-        <li *ngFor="let item of items" class="list-group-item">
+        <li *ngFor="let item of items" class="list-group-item" style="text-align: center;">
+            <div class="float-left">
+                <img class="thumbnail"[src]="item.imageUrl" [alt]="item.title">
+            </div>
             {{item.quantity}} x {{item.title}} 
          <div class="float-right">{{item.quantity*item.price| currency:'USD':true}}</div>
         </li>
