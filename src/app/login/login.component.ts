@@ -22,16 +22,5 @@ export class LoginComponent implements OnInit {
 
   login(){
     this.auth.login();
-    this.auth.user$.subscribe(user=>{
-      if(user){
-        console.log(user.metadata);
-        const token =user.getIdToken.toString()
-this.currentUser= user;
-localStorage.setItem('token',token);
-localStorage.setItem('user',this.currentUser);
-
-      }
-    })
-    
   }
 }

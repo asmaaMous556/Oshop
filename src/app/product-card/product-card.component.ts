@@ -1,3 +1,4 @@
+import { ProductService } from './../product.service';
 import { AuthGuardService } from './../auth-guard.service';
 import { AuthService } from './../auth.service';
 
@@ -21,27 +22,14 @@ item:item;
 items: item[];
 key:string
 
-  constructor( private cartService:ShoppingCartService,private cart:cart, private AuthService:AuthGuardService) { }
+  constructor( private cartService:ShoppingCartService,
+    private cart:cart, private productService:ProductService,
+    private AuthService:AuthGuardService) { }
   ngOnInit() {
- // this.getCart();
+   
 }
 
 getCart(){
- 
-}
-
-AddToCart(){
- 
-     this.product.quantity=1;
-     this.cartService.AddToCart(this.product);
-    
- }
-
-  //   }
-  // }
-
-
-
   // this.cartService.getCart().subscribe(items=>{
   //   this.items=items.map(item=>{
   //     return {
@@ -53,8 +41,42 @@ AddToCart(){
   //       totalPrice:item.payload.doc.data()['totalPrice']
   //     }
   //   })
+    // console.log(this.items);
+    // for(let productIndex in this.items){
+
+
+      // console.log(productIndex)
+
+      // console.log(this.product.key)
+      //  if(this.product.key===this.items[productIndex].key){
+      //  // console.log(this.items[productIndex].key);
+      //  this.cartService.changeQuantity(this.product.key,this.product,1);
+      //  }
+      //  else{
+      //  
+      //  }
+     
+//     }
+    
+// })
+ // }
+
+}
+
+addToCart(){
+ 
+    this.product.quantity=1;
+      this.cartService.AddToCart(this.product);
+    
+ }
+
+  //   }
+  // }
+
+
+
   //  // console.log(this.items);
-  //   for(let productId in this.items){
+  //   
      
   //   //  console.log(this.items[productId].key)
   //   //  console.log(this.product.key)
